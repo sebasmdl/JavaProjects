@@ -13,20 +13,25 @@ public class FirstApp {
     public static void main(String[] args) {
         Banco banco = new Banco();
 
-        Cuenta cuentaAhorros = new CuentaAhorro("123456", 1000.0);
-        Cliente cliente1 = new Cliente("Emilio garcia", "Calle 10 #145-4", cuentaAhorros);
+          // Multiples cuentas
+        Cuenta cuentaAhorros1 = new CuentaAhorro("005455512", 1000.0);
+        Cuenta cuentaCorriente1 = new CuentaCorriente("00326955", 500.0);
+
+        // Creo un cliente con dos cuentas
+        Cliente cliente1 = new Cliente("Jaime gomez", "Carrera 10 #30-26");
+        cliente1.agregarCuenta(cuentaAhorros1);
+        cliente1.agregarCuenta(cuentaCorriente1);
+
+        // Agrego el cliente al banco
         banco.agregarCliente(cliente1);
 
-        Cuenta cuentaCorriente = new CuentaCorriente("654321", 500.0);
-        Cliente cliente2 = new Cliente("Julian gomez", "Cra 34 #10-22", cuentaCorriente);
-        banco.agregarCliente(cliente2);
-
+        // listo los clientes del banco
         banco.listarClientes();
 
-        // Realizar transacciones
-        cliente1.getCuenta().depositar(500);
-        cliente2.getCuenta().retirar(100);
-
-        banco.listarClientes();
+        // Obtengo una cuenta
+        Cuenta cuentaConsultada = cliente1.getCuenta("123456");
+        if (cuentaConsultada != null) {
+            System.out.println("Saldo de la cuenta consultada: " + cuentaConsultada.consultarSaldo());
+        }   
     }
 }

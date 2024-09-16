@@ -4,6 +4,8 @@
  */
 package com.mycompany.firstapp;
 
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author sebas
@@ -11,17 +13,12 @@ package com.mycompany.firstapp;
 public class Cliente {
     private String nombre;
     private String direccion;
-    private Cuenta cuenta;
+    private final List<Cuenta> cuentas;
 
-    public Cliente(String nombre, String direccion, Cuenta cuenta) {
+    public Cliente(String nombre, String direccion) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.cuenta = cuenta;
-    }
-
-    @Override
-    public String toString() {
-        return "Nombre: " + nombre + ", Direccion: " + direccion + ", Cuenta: [" + cuenta + "]";
+        this.cuentas = new ArrayList<>();
     }
 
     // Getters y Setters
@@ -41,11 +38,32 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public Cuenta getCuenta() {
-        return cuenta;
+     public void agregarCuenta(Cuenta cuenta) {
+        cuentas.add(cuenta); // Add a new account to the list
     }
 
-    public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
+    public void eliminarCuenta(String numeroCuenta) {
+        cuentas.removeIf(cuenta -> cuenta.getNumeroCuenta().equals(numeroCuenta)); // Remove an account by number
+    }
+
+    public Cuenta getCuenta(String numeroCuenta) {
+        for (Cuenta cuenta : cuentas) {
+            if (cuenta.getNumeroCuenta().equals(numeroCuenta)) {
+                return cuenta; // Find and return the account
+            }
+        }
+        return null; // Return null if not found
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Nombre: ").append(nombre)
+               .append(", Direccion: ").append(direccion)
+               .append(", Cuentas: ");
+        for (Cuenta cuenta : cuentas) {
+            builder.append("[").append(cuenta).append("] ");
+        }
+        return builder.toString();
     }
 }
