@@ -8,35 +8,43 @@ package com.mycompany.firstapp;
  *
  * @author sebas
  */
-import java.util.ArrayList;
+import java.util.TreeSet;
 
-public class Banco {
-    private final ArrayList<Cliente> clientes;
+public class Banco implements ServicioClientes{
+    private final TreeSet<Cliente> clientes;
 
     public Banco() {
-        clientes = new ArrayList<>();
+        clientes = new TreeSet<>();
     }
-
-    public void agregarCliente(Cliente cliente) {
-        clientes.add(cliente);
+    @Override
+    public boolean  agregarCliente(Cliente cliente) {
+        return clientes.add(cliente);
     }
-
-    public void eliminarCliente(String nombreCliente) {
-        clientes.removeIf(cliente -> cliente.getNombre().equals(nombreCliente));
+    @Override
+    public boolean eliminarCliente(int id) {
+        return clientes.removeIf(cliente -> cliente.getId() == id);
     }
-
-    public Cliente consultarCliente(String nombreCliente) {
+   @Override
+      public Cliente consultarCliente(int id) {
         for (Cliente cliente : clientes) {
-            if (cliente.getNombre().equals(nombreCliente)) {
+            if (cliente.getId() == id) {
                 return cliente;
             }
         }
         return null;
     }
-
-    public void listarClientes() {
+    
+     public void listarClientes() {
         for (Cliente cliente : clientes) {
             System.out.println(cliente);
         }
+    }
+
+   public TreeSet<Cliente> getClientes() {
+        return clientes;
+    }
+    @Override
+    public TreeSet<Cliente> obtenerClientes() {
+        return clientes;
     }
 }

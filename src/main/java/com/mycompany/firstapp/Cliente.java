@@ -4,24 +4,33 @@
  */
 package com.mycompany.firstapp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.TreeSet;
 /**
  *
  * @author sebas
  */
-public class Cliente {
+public class Cliente implements Comparable<Cliente> {
     private String nombre;
+    private int id;
     private String direccion;
-    private final List<Cuenta> cuentas;
+     private final TreeSet<Cuenta> cuentas;
 
-    public Cliente(String nombre, String direccion) {
+    public Cliente(int id, String nombre, String direccion) {
+        this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
-        this.cuentas = new ArrayList<>();
+        this.cuentas = new TreeSet<>();
     }
 
     // Getters y Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -46,13 +55,8 @@ public class Cliente {
         cuentas.removeIf(cuenta -> cuenta.getNumeroCuenta().equals(numeroCuenta)); // Remove an account by number
     }
 
-    public Cuenta getCuenta(String numeroCuenta) {
-        for (Cuenta cuenta : cuentas) {
-            if (cuenta.getNumeroCuenta().equals(numeroCuenta)) {
-                return cuenta; // Find and return the account
-            }
-        }
-        return null; // Return null if not found
+     public TreeSet<Cuenta> getCuentas() {
+        return cuentas;
     }
     
     @Override
@@ -65,5 +69,10 @@ public class Cliente {
             builder.append("[").append(cuenta).append("] ");
         }
         return builder.toString();
+    }
+
+    @Override
+    public int compareTo(Cliente otroCliente) {
+         return this.nombre.compareTo(otroCliente.nombre);
     }
 }

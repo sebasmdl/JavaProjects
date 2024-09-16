@@ -8,7 +8,7 @@ package com.mycompany.firstapp;
  *
  * @author sebas
  */
-public abstract class Cuenta {
+public abstract class Cuenta implements Comparable<Cuenta> {
     private String numeroCuenta;
     private double saldo;
 
@@ -55,5 +55,9 @@ public abstract class Cuenta {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+    @Override
+    public int compareTo(Cuenta otraCuenta) {
+        return Double.compare(this.saldo, otraCuenta.saldo);
     }
 }
